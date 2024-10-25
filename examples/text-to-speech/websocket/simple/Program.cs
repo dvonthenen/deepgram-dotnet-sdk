@@ -2,10 +2,8 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // SPDX-License-Identifier: MIT
 
-using System.Text;
-
 using Deepgram.Models.Authenticate.v1;
-using Deepgram.Models.Speak.v1.WebSocket;
+using Deepgram.Models.Speak.v2.WebSocket;
 using Deepgram.Logger;
 
 
@@ -22,7 +20,7 @@ namespace SampleApp
             Library.Initialize(LogLevel.Verbose); // LogLevel.Default, LogLevel.Debug, LogLevel.Verbose
 
             //// use the client factory with a API Key set with the "DEEPGRAM_API_KEY" environment variable
-            //DeepgramWsClientOptions options = new DeepgramWsClientOptions(null, "ENTER URL HERE");
+            //DeepgramWsClientOptions options = new DeepgramWsClientOptions();
             //options.AutoFlushSpeakDelta = 1000;
             //var speakClient = ClientFactory.CreateSpeakWebSocketClient("", options);
             var speakClient = ClientFactory.CreateSpeakWebSocketClient();
@@ -31,16 +29,16 @@ namespace SampleApp
             bool appendWavHeader = true;
 
             // Subscribe to the EventResponseReceived event
-            speakClient.Subscribe(new EventHandler<OpenResponse>((sender, e) =>
+            await speakClient.Subscribe(new EventHandler<OpenResponse>((sender, e) =>
             {
                 Console.WriteLine($"\n\n----> {e.Type} received");
             }));
-            speakClient.Subscribe(new EventHandler<MetadataResponse>((sender, e) =>
+            await speakClient.Subscribe(new EventHandler<MetadataResponse>((sender, e) =>
             {
                 Console.WriteLine($"----> {e.Type} received");
                 Console.WriteLine($"----> RequestId: {e.RequestId}");
             }));
-            speakClient.Subscribe(new EventHandler<AudioResponse>((sender, e) =>
+            await speakClient.Subscribe(new EventHandler<AudioResponse>((sender, e) =>
             {
                 Console.WriteLine($"----> {e.Type} received");
 
@@ -115,27 +113,27 @@ namespace SampleApp
                     }
                 }
             }));
-            speakClient.Subscribe(new EventHandler<FlushedResponse>((sender, e) =>
+            await speakClient.Subscribe(new EventHandler<FlushedResponse>((sender, e) =>
             {
                 Console.WriteLine($"----> {e.Type} received");
             }));
-            speakClient.Subscribe(new EventHandler<ClearedResponse>((sender, e) =>
+            await speakClient.Subscribe(new EventHandler<ClearedResponse>((sender, e) =>
             {
                 Console.WriteLine($"----> {e.Type} received");
             }));
-            speakClient.Subscribe(new EventHandler<CloseResponse>((sender, e) =>
+            await speakClient.Subscribe(new EventHandler<CloseResponse>((sender, e) =>
             {
                 Console.WriteLine($"----> {e.Type} received");
             }));
-            speakClient.Subscribe(new EventHandler<UnhandledResponse>((sender, e) =>
+            await speakClient.Subscribe(new EventHandler<UnhandledResponse>((sender, e) =>
             {
                 Console.WriteLine($"----> {e.Type} received");
             }));
-            speakClient.Subscribe(new EventHandler<WarningResponse>((sender, e) =>
+            await speakClient.Subscribe(new EventHandler<WarningResponse>((sender, e) =>
             {
                 Console.WriteLine($"----> {e.Type} received");
             }));
-            speakClient.Subscribe(new EventHandler<ErrorResponse>((sender, e) =>
+            await speakClient.Subscribe(new EventHandler<ErrorResponse>((sender, e) =>
             {
                 Console.WriteLine($"----> {e.Type} received. Error: {e.Message}");
             }));
@@ -144,7 +142,7 @@ namespace SampleApp
             var speakSchema = new SpeakSchema()
             {
                 Encoding = "linear16",
-                SampleRate = 48000
+                SampleRate = 48000,
             };
             await speakClient.Connect(speakSchema);
 

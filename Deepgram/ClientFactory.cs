@@ -3,7 +3,8 @@
 // SPDX-License-Identifier: MIT
 
 using Deepgram.Models.Authenticate.v1;
-using Deepgram.Clients.Interfaces.v1;
+using V1 = Deepgram.Clients.Interfaces.v1;
+using V2 = Deepgram.Clients.Interfaces.v2;
 
 namespace Deepgram;
 
@@ -16,7 +17,7 @@ public static class ClientFactory
     /// <param name="options"></param>
     /// <param name="httpId"></param>
     /// <returns></returns>
-    public static IAnalyzeClient CreateAnalyzeClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
+    public static V1.IAnalyzeClient CreateAnalyzeClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
     {
         return new AnalyzeClient(apiKey, options, httpId);
     }
@@ -32,7 +33,7 @@ public static class ClientFactory
     // *********** WARNING ***********
     /// </summary>
     [Obsolete("Please use CreateListenWebSocketClient instead", false)]
-    public static ILiveClient CreateLiveClient(string apiKey = "", DeepgramWsClientOptions? options = null)
+    public static V1.ILiveClient CreateLiveClient(string apiKey = "", DeepgramWsClientOptions? options = null)
     {
         return new LiveClient(apiKey, options);
     }
@@ -43,7 +44,7 @@ public static class ClientFactory
     /// <param name="apiKey"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static IListenWebSocketClient CreateListenWebSocketClient(string apiKey = "", DeepgramWsClientOptions? options = null)
+    public static V2.IListenWebSocketClient CreateListenWebSocketClient(string apiKey = "", DeepgramWsClientOptions? options = null)
     {
         return new ListenWebSocketClient(apiKey, options);
     }
@@ -55,7 +56,7 @@ public static class ClientFactory
     /// <param name="options"></param>
     /// <param name="httpId"></param>
     /// <returns></returns>
-    public static IManageClient CreateManageClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
+    public static V1.IManageClient CreateManageClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
     {
         return new ManageClient(apiKey, options, httpId);
     }
@@ -71,7 +72,7 @@ public static class ClientFactory
     // *********** WARNING ***********
     /// </summary>
     [Obsolete("Please use CreateSelfHostedClient instead", false)]
-    public static IOnPremClient CreateOnPremClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
+    public static V1.IOnPremClient CreateOnPremClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
     {
         return new OnPremClient(apiKey, options, httpId);
     }
@@ -83,7 +84,7 @@ public static class ClientFactory
     /// <param name="options"></param>
     /// <param name="httpId"></param>
     /// <returns></returns>
-    public static ISelfHostedClient CreateSelfHostedClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
+    public static V1.ISelfHostedClient CreateSelfHostedClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
     {
         return new SelfHostedClient(apiKey, options, httpId);
     }
@@ -99,7 +100,7 @@ public static class ClientFactory
     // *********** WARNING ***********
     /// </summary>
     [Obsolete("Please use CreateListenRESTClient instead", false)]
-    public static IPreRecordedClient CreatePreRecordedClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
+    public static V1.IPreRecordedClient CreatePreRecordedClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
     {
         return new PreRecordedClient(apiKey, options, httpId);
     }
@@ -111,7 +112,7 @@ public static class ClientFactory
     /// <param name="options"></param>
     /// <param name="httpId"></param>
     /// <returns></returns>
-    public static IListenRESTClient CreateListenRESTClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
+    public static V1.IListenRESTClient CreateListenRESTClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
     {
         return new ListenRESTClient(apiKey, options, httpId);
     }
@@ -127,7 +128,7 @@ public static class ClientFactory
     // *********** WARNING ***********
     /// </summary>
     [Obsolete("Please use CreateSpeakRESTClient instead", false)]
-    public static ISpeakClient CreateSpeakClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
+    public static V1.ISpeakClient CreateSpeakClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
     {
         return new SpeakClient(apiKey, options, httpId);
     }
@@ -139,7 +140,7 @@ public static class ClientFactory
     /// <param name="options"></param>
     /// <param name="httpId"></param>
     /// <returns></returns>
-    public static ISpeakRESTClient CreateSpeakRESTClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
+    public static V1.ISpeakRESTClient CreateSpeakRESTClient(string apiKey = "", DeepgramHttpClientOptions? options = null, string? httpId = null)
     {
         return new SpeakRESTClient(apiKey, options, httpId);
     }
@@ -150,7 +151,7 @@ public static class ClientFactory
     /// <param name="apiKey"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static ISpeakWebSocketClient CreateSpeakWebSocketClient(string apiKey = "", DeepgramWsClientOptions? options = null)
+    public static V2.ISpeakWebSocketClient CreateSpeakWebSocketClient(string apiKey = "", DeepgramWsClientOptions? options = null)
     {
         return new SpeakWebSocketClient(apiKey, options);
     }
