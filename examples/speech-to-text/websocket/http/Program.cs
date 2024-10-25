@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // SPDX-License-Identifier: MIT
 
-using Deepgram.Models.Listen.v1.WebSocket;
+using Deepgram.Models.Listen.v2.WebSocket;
 
 namespace SampleApp
 {
@@ -17,7 +17,7 @@ namespace SampleApp
             var liveClient = new ListenWebSocketClient();
 
             // Subscribe to the EventResponseReceived event
-            liveClient.Subscribe(new EventHandler<ResultResponse>((sender, e) =>
+            await liveClient.Subscribe(new EventHandler<ResultResponse>((sender, e) =>
             {
                 if (e.Channel.Alternatives[0].Transcript == "")
                 {
